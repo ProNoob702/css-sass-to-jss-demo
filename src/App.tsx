@@ -1,6 +1,7 @@
 import * as React from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-css";
+import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-monokai";
 import { Button, Divider, Typography } from "@material-ui/core";
 import clsx from "clsx";
@@ -11,7 +12,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { useStyles } from "./App.styles";
-// import { cssToJss } from "jss-cli";
+import cssToJss from "custom-jss-cli";
 
 const langs: string[] = ["css", "sass"];
 
@@ -24,8 +25,12 @@ const App: React.FC<{}> = () => {
     setInput(value);
   };
   const handleConvert = () => {
-    // const jss: string = cssToJss({ code: input });
-    // setOutput(jss);
+    const jss = cssToJss({
+      code: input,
+      unit: undefined,
+      dashes: undefined,
+    });
+    setOutput(JSON.stringify(jss, null, 2));
   };
   const handleLangChange = (val: string) => {
     setSelectedLang(val);
@@ -97,7 +102,7 @@ const EditorsZone: React.FC<{
       <div className={classes.editorWrapper}>
         <AceEditor
           className={classes.editor}
-          mode={selectedlang}
+          mode="json"
           theme="monokai"
           name="output"
           onChange={() => {}}
