@@ -1,7 +1,7 @@
 import * as React from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-css";
-import "ace-builds/src-noconflict/mode-json";
+import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 import { Button, Divider, Typography } from "@material-ui/core";
 import clsx from "clsx";
@@ -25,12 +25,13 @@ const App: React.FC<{}> = () => {
     setInput(value);
   };
   const handleConvert = () => {
-    const jss = cssToJss({
+    const materialUICode = cssToJss({
       code: input,
+      isSass: selectedlang === "sass",
       unit: undefined,
       dashes: undefined,
     });
-    setOutput(JSON.stringify(jss, null, 2));
+    setOutput(materialUICode);
   };
   const handleLangChange = (val: string) => {
     setSelectedLang(val);
@@ -102,7 +103,7 @@ const EditorsZone: React.FC<{
       <div className={classes.editorWrapper}>
         <AceEditor
           className={classes.editor}
-          mode="json"
+          mode="javascript"
           theme="monokai"
           name="output"
           onChange={() => {}}

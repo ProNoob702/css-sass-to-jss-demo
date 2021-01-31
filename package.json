@@ -6,17 +6,19 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^12.19.15",
     "ace-builds": "^1.4.12",
     "clsx": "^1.1.1",
-    "custom-jss-cli": "^6.0.9",
-    "jss-cli": "^6.0.2",
+    "custom-jss-cli": "^6.1.5",
     "react": "^17.0.1",
     "react-ace": "^9.2.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
+    "jss-cli": "^6.0.2",
+    "node-sass": "^5.0.0",
+    "path-browserify": "^1.0.1",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^12.19.15",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
