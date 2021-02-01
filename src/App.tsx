@@ -14,7 +14,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import { useStyles } from "./App.styles";
 import cssToJss from "custom-jss-cli";
 
-const langs: string[] = ["css", "sass"];
+const langs: string[] = ["css"];
 
 const App: React.FC<{}> = () => {
   const classes = useStyles();
@@ -25,6 +25,14 @@ const App: React.FC<{}> = () => {
     setInput(value);
   };
   const handleConvert = () => {
+    // if (selectedlang === "sass") {
+    //   const code = renderSync({
+    //     data: input,
+    //     indentedSyntax: true,
+    //     outputStyle: "compressed",
+    //   }).css.toString();
+    //   console.log(code);
+    // }
     const materialUICode = cssToJss({
       code: input,
       isSass: selectedlang === "sass",
