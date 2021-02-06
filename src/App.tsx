@@ -12,7 +12,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { useStyles } from "./App.styles";
-import cssToJss from "custom-jss-cli";
+import cssToJss from "css-to-jss-lib";
 
 const langs: string[] = ["css"];
 
@@ -35,7 +35,6 @@ const App: React.FC<{}> = () => {
     // }
     const materialUICode = cssToJss({
       code: input,
-      isSass: selectedlang === "sass",
       unit: undefined,
       dashes: undefined,
     });
