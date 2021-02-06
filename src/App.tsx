@@ -7,10 +7,12 @@ import { Button, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import { useStyles } from "./App.styles";
 import cssToJss from "css-to-jss-lib";
+import { useSnackbar } from "notistack";
 
 const langs: string[] = ["css"];
 
 const App: React.FC<{}> = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const classes = useStyles();
   const selectedlang = langs[0];
   const [input, setInput] = React.useState<string | undefined>();
@@ -19,12 +21,25 @@ const App: React.FC<{}> = () => {
     setInput(value);
   };
   const handleConvert = () => {
-    const materialUICode = cssToJss({
-      code: input,
-      unit: undefined,
-      dashes: undefined,
+    closeSnackbar();
+    try {
+      const materialUICode = cssToJss({
+        code: input,
+        unit: undefined,
+        dashes: undefined,
+      });
+      setOutput(materialUICode);
+    } catch (err) {
+      handleError(err);
+    }
+  };
+  const handleError = (errorInfo: string) => {
+    enqueueSnackbar(`${errorInfo}`, {
+      variant: "error",
+      anchorOrigin: { vertical: "top", horizontal: "right" },
+      preventDuplicate: true,
+      autoHideDuration: 7000,
     });
-    setOutput(materialUICode);
   };
   return (
     <div className={clsx(classes.flexColumn, classes.root)}>
