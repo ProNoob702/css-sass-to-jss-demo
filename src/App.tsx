@@ -3,9 +3,8 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
-import { Button, Divider, Typography } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import clsx from "clsx";
-import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 import { useStyles } from "./App.styles";
 import cssToJss from "css-to-jss-lib";
 
