@@ -10,6 +10,11 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
     paddingRight: "55%",
   },
+  headerTxt: {
+    color: "white",
+    letterSpacing: -1,
+    marginBottom: 8,
+  },
   langSelectionZone: {
     paddingLeft: theme.spacing(1),
   },

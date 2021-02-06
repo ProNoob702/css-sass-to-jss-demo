@@ -6,11 +6,6 @@ import "ace-builds/src-noconflict/theme-monokai";
 import { Button, Divider, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import { useStyles } from "./App.styles";
 import cssToJss from "css-to-jss-lib";
 
@@ -18,21 +13,13 @@ const langs: string[] = ["css"];
 
 const App: React.FC<{}> = () => {
   const classes = useStyles();
-  const [selectedlang, setSelectedLang] = React.useState<string>(langs[0]);
+  const selectedlang = langs[0];
   const [input, setInput] = React.useState<string | undefined>();
   const [output, setOutput] = React.useState<string | undefined>();
   const onInputChange = (value: string) => {
     setInput(value);
   };
   const handleConvert = () => {
-    // if (selectedlang === "sass") {
-    //   const code = renderSync({
-    //     data: input,
-    //     indentedSyntax: true,
-    //     outputStyle: "compressed",
-    //   }).css.toString();
-    //   console.log(code);
-    // }
     const materialUICode = cssToJss({
       code: input,
       unit: undefined,
@@ -40,20 +27,12 @@ const App: React.FC<{}> = () => {
     });
     setOutput(materialUICode);
   };
-  const handleLangChange = (val: string) => {
-    setSelectedLang(val);
-  };
   return (
     <div className={clsx(classes.flexColumn, classes.root)}>
       <div className={clsx(classes.flexColumn, classes.header)}>
-        <Typography variant="h3">CSS to JSS</Typography>
-        <Divider />
-      </div>
-      <div className={clsx(classes.flexRow, classes.langSelectionZone)}>
-        <LangRadioBtns
-          selectedVal={selectedlang}
-          handleChange={handleLangChange}
-        />
+        <Typography variant="h3" className={classes.headerTxt}>
+          𝘾𝙎𝙎 𝙏Ø 𝙅𝙎𝙎
+        </Typography>
       </div>
       <div className={clsx("flexStartCenterRow", classes.editorsZone)}>
         <EditorsZone
@@ -98,13 +77,8 @@ const EditorsZone: React.FC<{
         />
       </div>
       <div className={clsx(classes.flexCenterRow, classes.convertBtn)}>
-        <Button
-          variant="contained"
-          color="secondary"
-          endIcon={<DoubleArrowIcon />}
-          onClick={handleConvert}
-        >
-          Convert
+        <Button variant="contained" color="default" onClick={handleConvert}>
+          <strong className="white">Convert</strong>
         </Button>
       </div>
       <div className={classes.editorWrapper}>
@@ -126,33 +100,6 @@ const EditorsZone: React.FC<{
         />
       </div>
     </>
-  );
-};
-
-const LangRadioBtns: React.FC<{
-  handleChange: (val: string) => void;
-  selectedVal: string;
-}> = ({ handleChange, selectedVal }) => {
-  return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">Language</FormLabel>
-      <RadioGroup
-        row
-        aria-label="Language"
-        name="Language"
-        value={selectedVal}
-        onChange={(e) => handleChange(e.target.value)}
-      >
-        {langs.map((lang) => (
-          <FormControlLabel
-            key={lang}
-            value={lang}
-            control={<Radio />}
-            label={lang.toUpperCase()}
-          />
-        ))}
-      </RadioGroup>
-    </FormControl>
   );
 };
 
