@@ -4,7 +4,13 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
     width: "100%",
+    display: "flex",
+  },
+  examples: {
+    height: "100%",
+    width: "100%",
     overflow: "hidden",
+    paddingLeft: 16,
   },
   header: {
     paddingBottom: theme.spacing(1),
@@ -32,6 +38,19 @@ export const useStyles = makeStyles((theme) => ({
   convertBtn: {
     width: "10%",
   },
+  drawer: {
+    width: 250,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 250,
+    background: "transparent",
+    // borderColor: "white",
+  },
+  navigationItem: {
+    paddingLeft: 24,
+    color: "white",
+  },
   flexColumn: {
     display: "flex",
     flexDirection: "column",
@@ -43,5 +62,10 @@ export const useStyles = makeStyles((theme) => ({
   flexCenterRow: {
     display: "flex",
     justifyContent: "center",
+  },
+  flexStartCenterRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
 }));

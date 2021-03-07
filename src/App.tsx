@@ -1,120 +1,37 @@
 import * as React from "react";
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-css";
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/theme-monokai";
-import { Button, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import { useStyles } from "./App.styles";
-import cssToJss from "css-to-jss-lib";
-import { useSnackbar } from "notistack";
-
-const langs: string[] = ["css"];
+import { CssToJssExample } from "./components/cssToJssExample";
+import { JsonToCssExample } from "./components/jssToSassExample";
+import { NavigationItems, NavigationPanel } from "./components/navigation";
 
 const App: React.FC<{}> = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const classes = useStyles();
-  const selectedlang = langs[0];
-  const [input, setInput] = React.useState<string | undefined>();
-  const [output, setOutput] = React.useState<string | undefined>();
-  const onInputChange = (value: string) => {
-    setInput(value);
-  };
-  const handleConvert = () => {
-    closeSnackbar();
-    try {
-      const materialUICode = cssToJss({
-        code: input,
-        unit: undefined,
-        dashes: undefined,
-      });
-      setOutput(materialUICode);
-    } catch (err) {
-      handleError(err);
-    }
-  };
-  const handleError = (errorInfo: string) => {
-    enqueueSnackbar(`${errorInfo}`, {
-      variant: "error",
-      anchorOrigin: { vertical: "top", horizontal: "right" },
-      preventDuplicate: true,
-      autoHideDuration: 7000,
-    });
+  const [selectedCase, setSelectedCase] = React.useState<string>(
+    NavigationItems.CSSTOJSS
+  );
+  const onClickPanelItem = (clickedItemId: string) => {
+    setSelectedCase(clickedItemId);
   };
   return (
-    <div className={clsx(classes.flexColumn, classes.root)}>
-      <div className={clsx(classes.flexColumn, classes.header)}>
-        <Typography variant="h3" className={classes.headerTxt}>
-          𝘾𝙎𝙎 𝙏Ø 𝙅𝙎𝙎
-        </Typography>
-      </div>
-      <div className={clsx("flexStartCenterRow", classes.editorsZone)}>
-        <EditorsZone
-          onInputChange={onInputChange}
-          handleConvert={handleConvert}
-          selectedlang={selectedlang}
-          input={input}
-          output={output}
-        />
+    <div className={clsx(classes.root)}>
+      <NavigationPanel panelItemClicked={onClickPanelItem} />
+      <div className={clsx(classes.flexColumn, classes.examples)}>
+        <RenderCase selectedCase={selectedCase} />
       </div>
     </div>
   );
 };
 
-const EditorsZone: React.FC<{
-  onInputChange: (value: string) => void;
-  handleConvert: () => void;
-  selectedlang: string;
-  input: string | undefined;
-  output: string | undefined;
-}> = ({ onInputChange, handleConvert, selectedlang, input, output }) => {
-  const classes = useStyles();
-  return (
-    <>
-      <div className={classes.editorWrapper}>
-        <AceEditor
-          className={classes.editor}
-          placeholder="Enter code here"
-          mode={selectedlang}
-          theme="monokai"
-          name="input"
-          onChange={onInputChange}
-          fontSize={16}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-          value={input}
-          setOptions={{
-            showLineNumbers: true,
-            tabSize: 2,
-          }}
-        />
-      </div>
-      <div className={clsx(classes.flexCenterRow, classes.convertBtn)}>
-        <Button variant="contained" color="default" onClick={handleConvert}>
-          <strong className="white">Convert</strong>
-        </Button>
-      </div>
-      <div className={classes.editorWrapper}>
-        <AceEditor
-          className={classes.editor}
-          mode="javascript"
-          theme="monokai"
-          name="output"
-          onChange={() => {}}
-          fontSize={16}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-          value={output}
-          setOptions={{
-            showLineNumbers: true,
-            tabSize: 2,
-          }}
-        />
-      </div>
-    </>
-  );
+const RenderCase: React.FC<{ selectedCase: string }> = ({ selectedCase }) => {
+  switch (selectedCase) {
+    case NavigationItems.CSSTOJSS:
+      return <CssToJssExample />;
+    case NavigationItems.JSSTOCSS:
+      return <JsonToCssExample />;
+    default:
+      return <CssToJssExample />;
+  }
 };
 
 export default App;
