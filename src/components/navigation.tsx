@@ -13,8 +13,8 @@ export enum NavigationItems {
 }
 
 const navigationItems = [
-  { id: "CSSTOJSS", label: "𝘾𝙎𝙎 𝙏Ø 𝙅𝙎𝙎" },
-  { id: "JSSTOSASS", label: "𝙅𝙎𝙎 𝙏Ø 𝙎𝘼𝙎𝙎" },
+ { id: "JSSTOSASS", label: "𝙅𝙎𝙎 𝙏Ø 𝙎𝘼𝙎𝙎" },
+ { id: "CSSTOJSS", label: "𝘾𝙎𝙎 𝙏Ø 𝙅𝙎𝙎" },
 ];
 
 export const NavigationPanel: React.FC<{
